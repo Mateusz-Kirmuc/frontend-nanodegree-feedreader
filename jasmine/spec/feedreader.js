@@ -80,6 +80,8 @@ $(function() {
       expect(body.hasClass("menu-hidden")).toBe(true);
       burger_icon.trigger("click");
       expect(body.hasClass("menu-hidden")).toBe(false);
+      burger_icon.trigger("click");
+      expect(body.hasClass("menu-hidden")).toBe(true);
     })
   });
   /* TODO: Write a new test suite named "Initial Entries" */
@@ -109,9 +111,13 @@ $(function() {
     let primary_entries, secondary_entries;
 
     beforeEach(function(done) {
+      // first loadFeed call
       loadFeed(1, function() {
+        // when called select entries anc call loadFeed with new argument
         primary_entries = $(".feed .entry");
+        // second loadFeed call
         loadFeed(2, function() {
+          // when called select entries again
           secondary_entries = $(".feed .entry");
           done();
         })
@@ -123,9 +129,9 @@ $(function() {
      * Remember, loadFeed() is asynchronous.
      */
     it("cause .feed content change", function(done) {
-      let primary_headers = primary_entries.children("h2").text();
-      let secondary_headers = secondary_entries.children("h2").text();
-      expect(primary_headers).not.toEqual(secondary_headers);
+      let primary_entries_headers = primary_entries.children("h2").text();
+      let secondary_entries_headers = secondary_entries.children("h2").text();
+      expect(primary_entries_headers).not.toEqual(secondary_entries_headers);
       done();
     })
   });
