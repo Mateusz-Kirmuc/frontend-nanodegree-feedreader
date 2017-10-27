@@ -85,7 +85,7 @@ $(function() {
   /* TODO: Write a new test suite named "Initial Entries" */
   describe("Initial Entries", function() {
     beforeEach(function(done) {
-      loadFeed(0, function() {
+      loadFeed(1, function() {
         done();
       });
     });
@@ -105,9 +105,29 @@ $(function() {
 
 
   /* TODO: Write a new test suite named "New Feed Selection" */
+  describe("Name Feed Selection", function() {
+    let primary_entries, secondary_entries;
 
-  /* TODO: Write a test that ensures when a new feed is loaded
-   * by the loadFeed function that the content actually changes.
-   * Remember, loadFeed() is asynchronous.
-   */
+    beforeEach(function(done) {
+      loadFeed(1, function() {
+        primary_entries = $(".feed .entry");
+        loadFeed(2, function() {
+          secondary_entries = $(".feed .entry");
+          done();
+        })
+      })
+    })
+
+    /* TODO: Write a test that ensures when a new feed is loaded
+     * by the loadFeed function that the content actually changes.
+     * Remember, loadFeed() is asynchronous.
+     */
+    it("cause .feed content change", function(done) {
+      let primary_headers = primary_entries.children("h2").text();
+      let secondary_headers = secondary_entries.children("h2").text();
+      expect(primary_headers).not.toEqual(secondary_headers);
+      done();
+    })
+  });
+
 }());
