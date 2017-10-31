@@ -35,7 +35,7 @@ $(function() {
       allFeeds.forEach(function(feed) {
         expect(feed.url).toBeDefined();
         expect(typeof feed.url).toBe("string");
-        expect(feed.url.lenght).not.toBe(0);
+        expect(feed.url.length).not.toBe(0);
       });
     });
 
